@@ -1,0 +1,5 @@
+build/
+sdkconfig
+sdkconfig.old
+# DON'T allow the managed_components source trees into being tracked by git!!!
+managed_components/
