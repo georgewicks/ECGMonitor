@@ -1,0 +1,61 @@
+ECGMonitor
+├── main
+│   ├── main.c
+│   ├── CMakeLists.txt
+│   ├── idf_component.yml
+│   ├── sigproc
+│   │   └── README.md
+│   ├── ECGLogData
+│   │   └── README.md
+│   ├── sigcapture
+│   │   └── README.md
+│   ├── sigstorage
+│   │   └── README.md
+│   ├── continuous_read_main.c
+│   ├── ECGSignalCapture.c
+│   ├── InitI2C.c
+│   ├── InitI2C.h
+│   └── Kconfig.projbuild
+├── README.md
+├── CMakeLists.txt
+├── .gitignore
+├── .vscode
+│   ├── c_cpp_properties.json
+│   ├── launch.json
+│   └── settings.json
+├── .devcontainer
+│   ├── devcontainer.json
+│   └── Dockerfile
+├── .clangd
+├── dependencies.lock
+├── sdkconfig
+├── components
+│   ├── ADS1115
+│   │   ├── include
+│   │   │   └── ADS1115.h
+│   │   ├── Adafruit_ADS1X15.h
+│   │   ├── ADS1115.h
+│   │   ├── ADS1115.c
+│   │   └── CMakeLists.txt
+│   ├── generic_i2c
+│   │   ├── CMakeLists.txt
+│   │   ├── generic_i2c_register.c
+│   │   └── generic_i2c_register.h
+│   ├── sdcard
+│   │   ├── include
+│   │   │   └── sdcard.h
+│   │   ├── CMakeLists.txt
+│   │   └── sdcard.c
+│   ├── RTC_db3231
+│   │   ├── RTC_db3231.c
+│   │   ├── include
+│   │   │   └── RTC_db3231.h
+│   │   └── CMakeLists.txt
+│   └── GPIOEXT_PCF8574
+│       ├── include
+│       │   └── GPIOEXT_PCF8574.h
+│       ├── CMakeLists.txt
+│       └── GPIOEXT_PCF8574.c
+└── include
+    ├── ECGcommon.h
+    └── ECGSignalCapture.h

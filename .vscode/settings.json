@@ -14,5 +14,13 @@
     "--background-index",
     "--query-driver=H:\\Development\\Espressif_5.4\\tools\\xtensa-esp-elf\\esp-14.2.0_20241119\\xtensa-esp-elf\\bin\\xtensa-esp32-elf-gcc.exe",
     "--compile-commands-dir=${workspaceFolder}\\build"
-  ]
+  ],
+  "files.associations": {
+    "*.inc": "c",
+    "initi2c.h": "c",
+    "common.h": "c",
+    "ecgsignalcapture.h": "c",
+    "ecgcommon.h": "c",
+    "sdmmc_cmd.h": "c"
+  }
 }

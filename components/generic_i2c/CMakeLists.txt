@@ -8,10 +8,14 @@ cmake_minimum_required(VERSION 3.5)
 # across the board, so to speak
 
 set(component_srcs "generic_i2c_register.c")
+#set(COMPONENT_ADD_INCLUDEDIRS "include")
+# set(COMPONENT_ADD_INCLUDEDIRS "include")
+
 
 idf_component_register(SRCS "${component_srcs}"
                     PRIV_REQUIRES driver
-                    INCLUDE_DIRS ".")
+                    INCLUDE_DIRS "."
+                    PRIV_INCLUDE_DIRS "${CMAKE_SOURCE_DIR}/include")
 
 # In the CMakeLists.txt of the 'helper' component
 #idf_component_register(
