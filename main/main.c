@@ -18,11 +18,15 @@ void    fatal_error(void)
     abort();
 }
 
+esp_err_t ds3231_get_time(i2c_dev_t *dev, struct tm *time)
+
 void app_main(void)
 {
     ESP_LOGI(TAG, "%s called", __func__ );
 
     esp_err_t ret = InitSDCard();
+
+    // Find the RTC & enable ECG signal capture
 
     ret = sigdata_open_ECG_file(ECG_file);
     if(ret != ESP_OK)

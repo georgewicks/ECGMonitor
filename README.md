@@ -45,8 +45,14 @@ The design of a portable 12-lead ECG monitoring device using a set cheap and off
 * Recycle Arduino based PCF8574 -- GPIO extender
     * This will be very useful for the "Leads Off" indicator
     * Fleshing Out LeadsOffDetector.c, converting from STM32 to ESP32 ESP-IDF
+* NOTE: Wiring for SPI devicess like the MicroSDcard Adapter:
+    * We setup the following for this current ESP32 implementation:
+        * MOSI (see SPI description), using GPIO pin 15
+        * CLK ("    "), using GPIO pin 14
+        * CS   ("   "), using GPIO pin 13
+        * MISO ("   "), using GPIO pin 5 (*** Not 2!!)
 
-### Update 2925-08-05
+### Update 2025-08-05
 * Too many issues that led to a fundamentally unworkable platform, in large part due to some rather vague technical documentation on the ESP-IDF platform. We are focused here on delivering some light on areas not suitably covered in the technical notes & manuals. Hopefully, this document could be a useful resource for those who want more light on some intricacies in the technology.
 
 ## Long term possibilities
