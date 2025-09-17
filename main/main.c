@@ -18,7 +18,7 @@ void    fatal_error(void)
     abort();
 }
 
-esp_err_t ds3231_get_time(i2c_dev_t *dev, struct tm *time)
+// esp_err_t ds3231_get_time(i2c_dev_t *dev, struct tm *time)
 
 void app_main(void)
 {

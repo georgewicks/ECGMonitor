@@ -27,6 +27,8 @@
 #include "esp_system.h"
 #include "generic_i2c_register.h"
 
+static char *TAG = "generic_I2c";
+
 /**
  * @brief      Write a 16 bit value to a register on an i2c device
  *
@@ -152,4 +154,57 @@ esp_err_t generic_read_i2c_register_word(uint8_t dev_addr, uint8_t regaddr, uint
 
     return ret;
 }
+
+// NEW: more than 2 data byte transfers
+esp_err_t generic_i2c_dev_read_bytes(uint8_t dev_addr, const void *out_data, size_t out_size, void *in_data, size_t in_size)
+{
+    esp_err_t   ret = ESP_OK;
+
+    // modified from i2cdev.c
+	if (!in_data || !in_size) return ESP_ERR_INVALID_ARG;
+
+	i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+	if (out_data && out_size)
+	{
+		i2c_master_start(cmd);
+		i2c_master_write_byte(cmd, (dev_addr << 1) | I2C_MASTER_WRITE, true);
+		i2c_master_write(cmd, (void *)out_data, out_size, true);
+	}
+	i2c_master_start(cmd);
+	i2c_master_write_byte(cmd, (dev_addr << 1) | I2C_MASTER_READ, true);
+	i2c_master_read(cmd, in_data, in_size, I2C_MASTER_LAST_NACK);
+	i2c_master_stop(cmd);
+
+	esp_err_t res = i2c_master_cmd_begin(I2C_NUM_0, cmd, 1000 / portTICK_PERIOD_MS);
+	if (res != ESP_OK)
+    {
+		ESP_LOGE(TAG, "Could not read from device [0x%02x at %d]: %d", dev_addr, I2C_NUM_0, res);
+    }
+	i2c_cmd_link_delete(cmd);
+
+
+    return ret;
+}
+
+esp_err_t generic_i2c_dev_write_bytes(uint8_t dev_addr, const void *out_reg, size_t out_reg_size, const void *out_data, size_t out_size)
+{
+    esp_err_t   ret = ESP_OK;
+
+    if (!out_data || !out_size) return ESP_ERR_INVALID_ARG;
+
+    i2c_cmd_handle_t cmd = i2c_cmd_link_create();
+    i2c_master_start(cmd);
+    i2c_master_write_byte(cmd, (dev_addr << 1) | I2C_MASTER_WRITE, true);
+    if (out_reg && out_reg_size)
+        i2c_master_write(cmd, (void *)out_reg, out_reg_size, true);
+    i2c_master_write(cmd, (void *)out_data, out_size, true);
+    i2c_master_stop(cmd);
+    ret = i2c_master_cmd_begin(dev_addr, cmd, 1000 / portTICK_PERIOD_MS);
+    if (ret != ESP_OK)
+        ESP_LOGE(TAG, "Could not write to device [0x%02x at %d]: %d (%s)", dev_addr, I2C_NUM_0, ret, esp_err_to_name(ret));
+    i2c_cmd_link_delete(cmd);
+
+    return ret;
+}
+
 
