@@ -34,8 +34,8 @@ esp_err_t generic_read_two_i2c_register(uint8_t dev_addr, uint8_t regaddr, uint8
 esp_err_t generic_read_i2c_register_word(uint8_t dev_addr, uint8_t regaddr, uint16_t* value);
 
 // New: read & write more than 2 bytes! This was driven by the DS3231, which can have 7 byte data transfers
-esp_err_t generic_i2c_dev_read_bytes(uint8_t dev_addr, const void *out_data, size_t out_size, void *in_data, size_t in_size);
-esp_err_t generic_i2c_dev_write_bytes(uint8_t dev_addr, const void *out_reg, size_t out_reg_size, const void *out_data, size_t out_size)
+//esp_err_t generic_i2c_dev_read_bytes(uint8_t dev_addr, const void *out_data, size_t out_size, void *in_data, size_t in_size);
+//esp_err_t generic_i2c_dev_write_bytes(uint8_t dev_addr, const void *out_reg, size_t out_reg_size, const void *out_data, size_t out_size)
 
 
 #ifdef NEW_STUFF

@@ -27,7 +27,9 @@
 #include "esp_system.h"
 #include "generic_i2c_register.h"
 
-static char *TAG = "generic_I2c";
+//static const char *TAG = "sdcard";
+
+//static const char *TAG = "generic_I2c";
 
 /**
  * @brief      Write a 16 bit value to a register on an i2c device
@@ -178,7 +180,7 @@ esp_err_t generic_i2c_dev_read_bytes(uint8_t dev_addr, const void *out_data, siz
 	esp_err_t res = i2c_master_cmd_begin(I2C_NUM_0, cmd, 1000 / portTICK_PERIOD_MS);
 	if (res != ESP_OK)
     {
-		ESP_LOGE(TAG, "Could not read from device [0x%02x at %d]: %d", dev_addr, I2C_NUM_0, res);
+		//ESP_LOGE(TAG, "Could not read from device [0x%02x at %d]: %d", dev_addr, I2C_NUM_0, res);
     }
 	i2c_cmd_link_delete(cmd);
 
@@ -200,8 +202,8 @@ esp_err_t generic_i2c_dev_write_bytes(uint8_t dev_addr, const void *out_reg, siz
     i2c_master_write(cmd, (void *)out_data, out_size, true);
     i2c_master_stop(cmd);
     ret = i2c_master_cmd_begin(dev_addr, cmd, 1000 / portTICK_PERIOD_MS);
-    if (ret != ESP_OK)
-        ESP_LOGE(TAG, "Could not write to device [0x%02x at %d]: %d (%s)", dev_addr, I2C_NUM_0, ret, esp_err_to_name(ret));
+    //if (ret != ESP_OK)
+    //    ESP_LOGE(TAG, "Could not write to device [0x%02x at %d]: %d (%s)", dev_addr, I2C_NUM_0, ret, esp_err_to_name(ret));
     i2c_cmd_link_delete(cmd);
 
     return ret;
