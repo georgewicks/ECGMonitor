@@ -19,6 +19,9 @@ uint8_t dec2bcd(uint8_t val)
 	return ((val / 10) << 4) + (val % 10);
 }
 
+// using a centralized I2C bus initialization
+#define NEW_INIT_I2C				
+
 esp_err_t ds3231_init_desc(i2c_dev_t *dev, i2c_port_t port, gpio_num_t sda_gpio, gpio_num_t scl_gpio)
 {
 	CHECK_ARG(dev);
@@ -28,7 +31,11 @@ esp_err_t ds3231_init_desc(i2c_dev_t *dev, i2c_port_t port, gpio_num_t sda_gpio,
 	dev->sda_io_num = sda_gpio;
 	dev->scl_io_num = scl_gpio;
 	dev->clk_speed = I2C_FREQ_HZ;
+#ifndef NEW_INIT_I2C
 	return i2c_dev_init(port, sda_gpio, scl_gpio);
+#else
+	return ESP_OK;
+#endif
 }
 
 esp_err_t ds3231_set_time(i2c_dev_t *dev, struct tm *time)

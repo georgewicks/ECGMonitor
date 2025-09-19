@@ -3,6 +3,7 @@
 
 #include "driver/i2c.h"
 
+
 #define I2C_FREQ_HZ 100000
 #define I2CDEV_TIMEOUT 1000
 
